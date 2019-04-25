@@ -40,12 +40,12 @@ export default class App extends Component {
       <View>
         <Text style={styles.title}>Todo List!</Text>
         <ListView data={this.state.data} />
-        <CustomButton handleOnTouch={this.handleOnTouch}/>
         <TextInput 
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}
           style={styles.input}
         />
+        <CustomButton handleOnTouch={this.handleOnTouch}/>
       </View>
     );
   }
