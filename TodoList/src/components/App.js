@@ -8,6 +8,8 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
+import ListView from './ListView';
+import CustomButton from './CustomButton';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -20,16 +22,16 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [{key: 'Wake up'}, {key: 'suck dick'}]
     }
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>ALDKLSAK</Text>
-        <Text style={styles.instructions}>Hello World!</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <Text>Todo List!</Text>
+        <ListView data={this.state.data} />
+        <CustomButton />
       </View>
     );
   }

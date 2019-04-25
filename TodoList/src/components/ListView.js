@@ -4,7 +4,7 @@ import { FlatList, StyleSheet } from 'react-native';
 
 export default ListView = props => (
   <FlatList 
-    data={}
-    renderItem={({ item }) => <Todo>{item}</Todo>}
+    data={props.data}
+    renderItem={({ item }) => <Todo todo={item.key} />}
   />
 );
