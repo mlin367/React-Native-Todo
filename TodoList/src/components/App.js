@@ -24,20 +24,21 @@ export default class App extends Component {
     super(props);
     this.state = {
       data: [],
-      text: ''
+      text: '',
+      count: 1
     }
     this.handleOnTouch = this.handleOnTouch.bind(this);
   }
 
   handleOnTouch() {
-    this.setState(prevState => ({data: [...prevState.data, {key: this.state.text}]}), 
-      () => this.setState({text: ''}));
+    this.setState(prevState => ({data: [...prevState.data, {key: Math.random().toString(), text: this.state.text, count: this.state.count}]}), 
+      () => this.setState({text: '', count: this.state.count + 1}));
   }
 
   render() {
     return (
       <View>
-        <Text>Todo List!</Text>
+        <Text style={styles.title}>Todo List!</Text>
         <ListView data={this.state.data} />
         <CustomButton handleOnTouch={this.handleOnTouch}/>
         <TextInput 
@@ -51,6 +52,12 @@ export default class App extends Component {
 }
 
 const styles = StyleSheet.create({
+  title: {
+    fontSize: 50,
+    color: 'black',
+    fontWeight: 'bold'
+  },
+
   input: {
     borderColor: 'black',
     borderWidth: 1
