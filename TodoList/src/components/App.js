@@ -30,11 +30,17 @@ export default class App extends Component {
       count: 1
     }
     this.handleOnTouch = this.handleOnTouch.bind(this);
+    this.storeData = this.storeData.bind(this);
+    this.getData = this.getData.bind(this);
+  }
+
+  componentDidMount() {
+    this.getData();
   }
 
   storeData = async () => {
     try {
-      await AsyncStorage.setItem('data', this.state.data);
+      await AsyncStorage.setItem('data', JSON.stringify(this.state.data));
     } catch (e) {
       console.error(e.message);
     }
@@ -45,7 +51,7 @@ export default class App extends Component {
       const data = await AsyncStorage.getItem('data');
       if (data !== null) {
         this.setState({
-          data
+          data : JSON.parse(data)
         });
       }
     } catch (e) {
@@ -56,6 +62,11 @@ export default class App extends Component {
   handleOnTouch() {
     this.setState(prevState => ({data: [...prevState.data, {key: Math.random().toString(), text: this.state.text, count: this.state.count}]}), 
       () => this.setState({text: '', count: this.state.count + 1}));
+  }
+
+  componentWillUnmount() {
+    console.log(this.state.data)
+    this.storeData();
   }
 
   render() {
