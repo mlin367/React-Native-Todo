@@ -10,6 +10,8 @@ import React, {Component} from 'react';
 import { Platform, StyleSheet, Text, View, TextInput } from 'react-native';
 import ListView from './ListView';
 import CustomButton from './CustomButton';
+import AsyncStorage from '@react-native-community/async-storage';
+
 // import console = require('console');
 
 const instructions = Platform.select({
@@ -28,6 +30,27 @@ export default class App extends Component {
       count: 1
     }
     this.handleOnTouch = this.handleOnTouch.bind(this);
+  }
+
+  storeData = async () => {
+    try {
+      await AsyncStorage.setItem('data', this.state.data);
+    } catch (e) {
+      console.error(e.message);
+    }
+  }
+
+  getData = async () => {
+    try {
+      const data = await AsyncStorage.getItem('data');
+      if (data !== null) {
+        this.setState({
+          data
+        });
+      }
+    } catch (e) {
+      console.error(e.message);
+    }
   }
 
   handleOnTouch() {
