@@ -41,6 +41,7 @@ export default class App extends Component {
   storeData = async () => {
     try {
       await AsyncStorage.setItem('data', JSON.stringify(this.state.data));
+      await AsyncStorage.setItem('count', this.state.count.toString());
     } catch (e) {
       console.error(e.message);
     }
@@ -48,10 +49,14 @@ export default class App extends Component {
 
   getData = async () => {
     try {
+      // await AsyncStorage.removeItem('data');
+      // await AsyncStorage.removeItem('count');
       const data = await AsyncStorage.getItem('data');
+      const count = await AsyncStorage.getItem('count');
       if (data !== null) {
         this.setState({
-          data : JSON.parse(data)
+          data : JSON.parse(data),
+          count: parseInt(count)
         });
       }
     } catch (e) {
